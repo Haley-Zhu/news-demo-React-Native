@@ -1,0 +1,1 @@
+export const baseURL = "https://staging.allfin.com/wordpress/wp-json/wp/v2/posts";
