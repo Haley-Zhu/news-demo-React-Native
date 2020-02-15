@@ -5,17 +5,21 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  Image
+  Image,
+  ActivityIndicator
 } from "react-native";
 import { getNewsList } from "../utils/axiosAPI";
 
 const ListPage = ({ navigation }) => {
-  const [dataSource, setDataSource] = useState([]);
+  const [listData, setListData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [errorInfo, setErrorInfo] = useState("");
   useEffect(() => {
-    fetchData();
+    _fetchData();
   }, []);
 
-  const fetchData = () => {
+  const _fetchData = () => {
     getNewsList().then(data => {
       const dataSource = data.map(item => {
         return {
@@ -24,8 +28,16 @@ const ListPage = ({ navigation }) => {
           title: item.title.rendered
         };
       });
-      setDataSource(dataSource);
+      setListData(dataSource);
+      setLoading(false);
+    }).catch(error => {
+      setError(true);
+      setErrorInfo(error);
     });
+  };
+
+  const _onItemPress = id => {
+    console.log("!!!!!!!!!!!!!", id);
   };
 
   const _renderItem = ({ item }) => {
@@ -33,7 +45,7 @@ const ListPage = ({ navigation }) => {
       ? { uri: item.image }
       : require("../../assets/default-image.jpg");
     return (
-      <TouchableOpacity onPress={() => this._onItemPress(item.id)}>
+      <TouchableOpacity onPress={() => _onItemPress(item.id)}>
         <View style={listStyles.itemContainer}>
           <Image source={image} style={listStyles.itemImage} />
           <Text style={listStyles.itemTitle}>{item.title}</Text>
@@ -46,16 +58,38 @@ const ListPage = ({ navigation }) => {
     <View style={listStyles.itemSeparator}></View>
   );
 
-  return (
-    <View style={listStyles.container}>
-      <FlatList
-        data={dataSource}
-        renderItem={_renderItem}
-        ItemSeparatorComponent={_renderItemSeparatorComponent}
-        keyExtractor={item => item.id.toString()}
-      />
-    </View>
-  );
+  const _renderLoadingView = () => {
+    return (
+      <View style={listStyles.container}>
+        <ActivityIndicator animating={true} color="black" size="large" />
+      </View>
+    );
+  };
+
+  const _renderErrorView = () => {
+    return (
+      <View>
+        <Text>errorInfo</Text>
+      </View>
+    );
+  }
+
+  const _renderListView = () => {
+    return (
+      <View style={listStyles.container}>
+        <FlatList
+          data={listData}
+          renderItem={_renderItem}
+          ItemSeparatorComponent={() => _renderItemSeparatorComponent()}
+          keyExtractor={item => item.id.toString()}
+        />
+      </View>
+    );
+  };
+
+  if (loading && !error) { return _renderLoadingView()}
+  else if (error) { return _renderErrorView()}
+  return _renderListView();
 };
 
 ListPage.navigationOptions = () => ({
@@ -77,9 +111,9 @@ const listStyles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 18
   },
-  itemSeparator: { 
-    height: 1, 
-    backgroundColor: "#c2c3c4" 
+  itemSeparator: {
+    height: 1,
+    backgroundColor: "#c2c3c4",
   },
   itemImage: {
     width: 100,
