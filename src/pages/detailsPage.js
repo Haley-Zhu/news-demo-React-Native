@@ -4,20 +4,27 @@ import FontSizeButton from '../componnents/fontSizeButton';
 import FontSlider from '../componnents/fontSlider';
 import { getDetailById } from "../utils/axiosAPI";
 import { useMappedState } from "redux-react-hook";
-
-let fontSize;
+import { fontSizeGroup } from '../utils/constants'
 
 const DetailsPage = ({ navigation }) => {
+  const fontValue = useMappedState(state => state.fontValue);
+  const fontSize = fontSizeGroup[fontValue];
+  console.log("**********", fontSize);
+
+  const [font, setFont] = useState(fontSizeGroup[fontValue]);
   const [detailData, setDetailData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [errorInfo, setErrorInfo] = useState("");
 
-  fontSize = useMappedState(state => state.fontSize);
-
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log("&&&&&&&&&&&", fontSize);
+    setFont(fontSize);
+  })
 
   const fetchData = () => {
     const itemId = JSON.stringify(navigation.getParam("id", "NO-ID"));
@@ -63,7 +70,7 @@ const DetailsPage = ({ navigation }) => {
             <Text style={detailsStyles.date}>{detailData.date}</Text>
           </View>
           <View>
-            <Text style={detailsStyles.content}>{detailData.content}</Text>
+            <Text style={{fontSize: font, textAlign: 'justify'}}>{detailData.content}</Text>
           </View>
         </ScrollView>
       </View>
@@ -82,7 +89,6 @@ DetailsPage.navigationOptions = () => ({
 });
 
 export default DetailsPage;
-console.log("&&&&&&&&&&", fontSize);
 
 var detailsStyles = StyleSheet.create({
   container: {
@@ -103,8 +109,4 @@ var detailsStyles = StyleSheet.create({
   date: {
     margin: 10
   },
-  content: {
-    fontSize: fontSize,
-    textAlign: 'justify'
-  }
 });

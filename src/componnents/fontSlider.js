@@ -7,13 +7,17 @@ import {
 import Modal from "react-native-modal";
 import { useDispatch, useMappedState } from "redux-react-hook";
 import { setFontSliderVisible as setFontSliderVisibleAction } from '../redux/actions';
+import { modifyFontSize as modifyFontSizeAction } from '../redux/actions';
+import { fontSizeGroup } from '../utils/constants'
 
 const FontSlider = () => {
   const dispatch = useDispatch();
   const isFontSliderVisible = useMappedState(state => state.isFontSliderVisible);
+  const fontValue = useMappedState(state => state.fontValue);
 
   _onValueChange = value => {
     console.log("!!!!!!!!!", value);
+    dispatch(modifyFontSizeAction(value));
   };
 
   return (
@@ -28,8 +32,9 @@ const FontSlider = () => {
         <Slider
           style={viewStyles.slider}
           minimumValue={0}
-          maximumValue={5}
+          maximumValue={fontSizeGroup.length - 1}
           step={1}
+          value={fontValue}
           onValueChange={_onValueChange}
         />
       </View>
