@@ -1,8 +1,10 @@
 ## Available Scripts
 
-### `yarn start`
+### `yarn`
 
-You could clone this repository.
+Install the project.
+
+### `yarn start`
 
 Runs the app in the expo.
 
