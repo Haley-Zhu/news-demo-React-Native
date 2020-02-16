@@ -14,7 +14,6 @@ const FontSlider = () => {
   const fontValue = useMappedState(state => state.fontValue);
 
   _onValueChange = value => {
-    console.log("!!!!!!!!!", value);
     dispatch(modifyFontSizeAction(value));
   };
 
