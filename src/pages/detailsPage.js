@@ -4,7 +4,8 @@ import FontSizeButton from '../componnents/fontSizeButton';
 import FontSlider from '../componnents/fontSlider';
 import { getDetailById } from "../utils/axiosAPI";
 import { useMappedState } from "redux-react-hook";
-import { fontSizeGroup } from '../utils/constants'
+import { fontSizeGroup } from '../utils/constants';
+import { timeFormat_cn } from '../utils/helpers';
 
 const DetailsPage = ({ navigation }) => {
   const fontValue = useMappedState(state => state.fontValue);
@@ -31,7 +32,7 @@ const DetailsPage = ({ navigation }) => {
     getDetailById(itemId).then(data => {
       const _detailData = {
         title: data.title.rendered,
-        date: data.date,
+        date: data.date_gmt,
         content: data.content.rendered
       };
       setDetailData(_detailData);
@@ -67,7 +68,7 @@ const DetailsPage = ({ navigation }) => {
             <Text style={detailsStyles.title}>{detailData.title}</Text>
           </View>
           <View>
-            <Text style={detailsStyles.date}>{detailData.date}</Text>
+            <Text style={detailsStyles.date}>{timeFormat_cn(detailData.date)}</Text>
           </View>
           <View>
             <Text style={{fontSize: font, textAlign: 'justify'}}>{detailData.content}</Text>
@@ -84,7 +85,7 @@ const DetailsPage = ({ navigation }) => {
 };
 
 DetailsPage.navigationOptions = () => ({
-  headerTitle: null,
+  headerTitle: () => null,
   headerRight: () => <FontSizeButton />
 });
 
@@ -107,6 +108,8 @@ var detailsStyles = StyleSheet.create({
     textAlign: 'justify'
   },
   date: {
-    margin: 10
+    margin: 10,
+    fontSize: 16,
+    color: "grey"
   },
 });

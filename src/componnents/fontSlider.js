@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Slider,
@@ -28,7 +28,7 @@ const FontSlider = () => {
       animationOutTiming={0}
       onBackdropPress={() => dispatch(setFontSliderVisibleAction(false))}
     >
-      <View style={viewStyles.test}>
+      <View style={viewStyles.toast}>
         <Slider
           style={viewStyles.slider}
           minimumValue={0}
@@ -45,18 +45,12 @@ const FontSlider = () => {
 export default FontSlider;
 
 const viewStyles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    width: 300,
-    height: 30
-  },
-  test: {
+  toast: {
+    top: 100,
     backgroundColor: "rgba(0,0,0,0.7)",
-    padding: 20
+    padding: 20,
   },
   slider: {
-    // width: 300,
     paddingHorizontal: 40,
-    height: 40
   }
 });

@@ -21,12 +21,16 @@ export default FontSizeButton;
 
 var styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
-    backgroundColor: "blue"
+    // paddingHorizontal: 30,
+    // backgroundColor: "blue"
+    marginRight: 20,
+    borderColor: "black",
+    borderWidth: 3
   },
   text: {
     fontSize: 30,
     fontWeight: "bold",
+    paddingHorizontal: 20,
     // fontFamily: "Times New Roman"
   }
 });
