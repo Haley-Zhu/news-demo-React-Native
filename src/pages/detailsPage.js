@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-native";
+import FontSizeButton from '../componnents/fontSizeButton';
 import { getDetailById } from "../utils/axiosAPI";
 
 const DetailsPage = ({ navigation }) => {
@@ -21,8 +22,28 @@ const DetailsPage = ({ navigation }) => {
         content: data.content.rendered
       };
       setDetailData(_detailData);
-    });
+      setLoading(false);
+    }).catch(error => {
+      setError(true);
+      setErrorInfo(error);
+    });;
   };
+
+  const renderLoadingView = () => {
+    return (
+      <View style={detailsStyles.container}>
+        <ActivityIndicator animating={true} color="black" size="large" />
+      </View>
+    );
+  };
+
+  const renderErrorView = () => {
+    return (
+      <View>
+        <Text>{`${errorInfo}`}</Text>
+      </View>
+    );
+  }
 
   const renderDetailsView = () => {
     return (
@@ -42,11 +63,15 @@ const DetailsPage = ({ navigation }) => {
     );
   };
 
+  if (loading && !error) { return renderLoadingView()}
+  else if (error) { return renderErrorView()}
   return renderDetailsView();
+
 };
 
 DetailsPage.navigationOptions = () => ({
-  title: null
+  title: null,
+  headerRight: (<FontSizeButton />)
 });
 
 export default DetailsPage;
@@ -54,7 +79,9 @@ const font = 20;
 
 var detailsStyles = StyleSheet.create({
   container: {
+    flex:1,
     margin: 5,
+    justifyContent: "center",
     backgroundColor: "#F5FCFF"
   },
   newsContainer: {
