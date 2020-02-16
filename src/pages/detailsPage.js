@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-native";
 import FontSizeButton from '../componnents/fontSizeButton';
+import SliderToast from '../componnents/sliderToast';
 import { getDetailById } from "../utils/axiosAPI";
 
 const DetailsPage = ({ navigation }) => {
@@ -48,6 +49,7 @@ const DetailsPage = ({ navigation }) => {
   const renderDetailsView = () => {
     return (
       <View style={detailsStyles.container}>
+        <SliderToast />
         <ScrollView style={detailsStyles.newsContainer}>
           <View>
             <Text style={detailsStyles.title}>{detailData.title}</Text>

@@ -23,6 +23,6 @@ var styles = StyleSheet.create({
   text: {
     fontSize: 30,
     fontWeight: "bold",
-    fontFamily: "Times New Roman"
+    // fontFamily: "Times New Roman"
   }
 });
