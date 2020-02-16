@@ -6,8 +6,8 @@ import React from "react";
 
 const RootStack = createStackNavigator(
   {
-    List: {screen: ListPage},
-    Detail: {screen: DetailsPage},
+    List: { screen: ListPage },
+    Detail: { screen: DetailsPage }
   },
   {
     initialRouteName: "List"

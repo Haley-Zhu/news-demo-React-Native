@@ -20,26 +20,27 @@ const ListPage = ({ navigation }) => {
   }, []);
 
   const fetchData = () => {
-    getNewsList().then(data => {
-      const dataSource = data.map(item => {
-        return {
-          id: item.id,
-          image: item.type_img,
-          title: item.title.rendered
-        };
+    getNewsList()
+      .then(data => {
+        const dataSource = data.map(item => {
+          return {
+            id: item.id,
+            image: item.type_img,
+            title: item.title.rendered
+          };
+        });
+        setListData(dataSource);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(true);
+        setErrorInfo(error);
       });
-      setListData(dataSource);
-      setLoading(false);
-    }).catch(error => {
-      setError(true);
-      setErrorInfo(error);
-    });
   };
 
   const _onItemPress = itemId => {
-    console.log("!!!!!!!!!!!!!", itemId);
     navigation.navigate("Detail", {
-      id: itemId,
+      id: itemId
     });
   };
 
@@ -61,23 +62,23 @@ const ListPage = ({ navigation }) => {
     <View style={listStyles.itemSeparator}></View>
   );
 
-  const _renderLoadingView = () => {
+  const renderLoadingView = () => {
     return (
-      <View style={listStyles.container}>
+      <View style={listStyles.loadingContainer}>
         <ActivityIndicator animating={true} color="black" size="large" />
       </View>
     );
   };
 
-  const _renderErrorView = () => {
+  const renderErrorView = () => {
     return (
       <View>
         <Text>{`${errorInfo}`}</Text>
       </View>
     );
-  }
+  };
 
-  const _renderListView = () => {
+  const renderListView = () => {
     return (
       <View style={listStyles.container}>
         <FlatList
@@ -90,18 +91,26 @@ const ListPage = ({ navigation }) => {
     );
   };
 
-  if (loading && !error) { return _renderLoadingView()}
-  else if (error) { return _renderErrorView()}
-  return _renderListView();
+  if (loading && !error) {
+    return renderLoadingView();
+  } else if (error) {
+    return renderErrorView();
+  }
+  return renderListView();
 };
 
 ListPage.navigationOptions = () => ({
-  headerTitle: () => null,
+  headerTitle: () => null
 });
 
 export default ListPage;
 
 const listStyles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
   container: {
     margin: 20
   },
@@ -116,7 +125,7 @@ const listStyles = StyleSheet.create({
   },
   itemSeparator: {
     height: 1,
-    backgroundColor: "#c2c3c4",
+    backgroundColor: "#c2c3c4"
   },
   itemImage: {
     width: 100,

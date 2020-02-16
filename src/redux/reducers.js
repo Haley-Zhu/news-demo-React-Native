@@ -1,4 +1,4 @@
-import { initailFontValue } from '../utils/constants';
+import { initailFontValue } from "../utils/constants";
 
 const initialState = {
   fontValue: initailFontValue,
@@ -11,20 +11,19 @@ const reducer = (state = initialState, action) => {
     case "MODIFY_FONTSIZE":
       newState = {
         ...state,
-        fontValue: action.value,
+        fontValue: action.value
       };
       break;
-      case "SHOW_FONTSLIDER":
-        newState = {
-          ...state,
-          isFontSliderVisible: action.isFontSliderVisible,
-        };
-        break;
+    case "SHOW_FONTSLIDER":
+      newState = {
+        ...state,
+        isFontSliderVisible: action.isFontSliderVisible
+      };
+      break;
     default:
       newState = state;
       break;
-  }; 
-  console.log("^^^^^^^^^^^^", newState.fontValue, newState.isFontSliderVisible);
+  }
   return newState;
-}
+};
 export default reducer;
