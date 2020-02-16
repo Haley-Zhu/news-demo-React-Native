@@ -1,7 +1,7 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import ListPage from "../pages/listPage";
-import DetailsPage from "../pages/detailsPage";
+import ListPage from "../pages/ListPage";
+import DetailsPage from "../pages/DetailsPage";
 import React from "react";
 
 const RootStack = createStackNavigator(

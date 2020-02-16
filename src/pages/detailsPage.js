@@ -6,8 +6,8 @@ import {
   ScrollView,
   ActivityIndicator
 } from "react-native";
-import FontSizeButton from "../componnents/fontSizeButton";
-import FontSlider from "../componnents/fontSlider";
+import FontSizeButton from "../componnents/FontSizeButton";
+import FontSlider from "../componnents/FontSlider";
 import { getDetailById } from "../utils/axiosAPI";
 import { useMappedState } from "redux-react-hook";
 import { fontSizeGroup } from "../utils/constants";
