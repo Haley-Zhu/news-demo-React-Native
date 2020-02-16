@@ -16,10 +16,10 @@ const ListPage = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [errorInfo, setErrorInfo] = useState("");
   useEffect(() => {
-    _fetchData();
+    fetchData();
   }, []);
 
-  const _fetchData = () => {
+  const fetchData = () => {
     getNewsList().then(data => {
       const dataSource = data.map(item => {
         return {
@@ -36,8 +36,11 @@ const ListPage = ({ navigation }) => {
     });
   };
 
-  const _onItemPress = id => {
-    console.log("!!!!!!!!!!!!!", id);
+  const _onItemPress = itemId => {
+    console.log("!!!!!!!!!!!!!", itemId);
+    navigation.navigate("Detail", {
+      id: itemId,
+    });
   };
 
   const _renderItem = ({ item }) => {
@@ -69,7 +72,7 @@ const ListPage = ({ navigation }) => {
   const _renderErrorView = () => {
     return (
       <View>
-        <Text>errorInfo</Text>
+        <Text>{`${errorInfo}`}</Text>
       </View>
     );
   }
