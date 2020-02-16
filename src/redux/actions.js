@@ -1,4 +1,9 @@
 export const modifyFontSize = value => ({
-  preload: value,
+  value,
   type: 'MODIFY_FONTSIZE',
+})
+
+export const setFontSliderVisible = (isFontSliderVisible = false) => ({
+  isFontSliderVisible,
+  type: 'SHOW_FONTSLIDER',
 })

@@ -96,7 +96,7 @@ const ListPage = ({ navigation }) => {
 };
 
 ListPage.navigationOptions = () => ({
-  title: null
+  headerTitle: null
 });
 
 export default ListPage;

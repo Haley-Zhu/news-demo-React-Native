@@ -1,5 +1,6 @@
 const initialState = {
-  fontSize: 20
+  fontSize: 20,
+  isFontSliderVisible: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -8,14 +9,20 @@ const reducer = (state = initialState, action) => {
     case "MODIFY_FONTSIZE":
       newState = {
         ...state,
-        fontSize: action.preload,
+        fontSize: action.value,
       };
       break;
+      case "SHOW_FONTSLIDER":
+        newState = {
+          ...state,
+          isFontSliderVisible: action.isFontSliderVisible,
+        };
+        break;
     default:
       newState = state;
       break;
   }; 
-  console.log("^^^^^^^^^^^^", newState.fontSize);
+  console.log("^^^^^^^^^^^^", newState.fontSize, newState.isFontSliderVisible);
   return newState;
 }
 export default reducer;

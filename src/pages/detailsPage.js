@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-native";
 import FontSizeButton from '../componnents/fontSizeButton';
-import SliderToast from '../componnents/sliderToast';
+import FontSlider from '../componnents/fontSlider';
 import { getDetailById } from "../utils/axiosAPI";
 import { useMappedState } from "redux-react-hook";
+
+let fontSize;
 
 const DetailsPage = ({ navigation }) => {
   const [detailData, setDetailData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [errorInfo, setErrorInfo] = useState("");
+
+  fontSize = useMappedState(state => state.fontSize);
 
   useEffect(() => {
     fetchData();
@@ -31,9 +35,6 @@ const DetailsPage = ({ navigation }) => {
     });;
   };
 
-  const fontSize = useMappedState(state => state.fontSize);
-  console.log("&&&&&&&&&&", fontSize);
-
   const renderLoadingView = () => {
     return (
       <View style={detailsStyles.container}>
@@ -53,7 +54,7 @@ const DetailsPage = ({ navigation }) => {
   const renderDetailsView = () => {
     return (
       <View style={detailsStyles.container}>
-        <SliderToast />
+        <FontSlider />
         <ScrollView style={detailsStyles.newsContainer}>
           <View>
             <Text style={detailsStyles.title}>{detailData.title}</Text>
@@ -76,12 +77,12 @@ const DetailsPage = ({ navigation }) => {
 };
 
 DetailsPage.navigationOptions = () => ({
-  title: null,
+  headerTitle: null,
   headerRight: () => <FontSizeButton />
 });
 
 export default DetailsPage;
-const font = 20;
+console.log("&&&&&&&&&&", fontSize);
 
 var detailsStyles = StyleSheet.create({
   container: {
@@ -103,7 +104,7 @@ var detailsStyles = StyleSheet.create({
     margin: 10
   },
   content: {
-    fontSize: font,
+    fontSize: fontSize,
     textAlign: 'justify'
   }
 });

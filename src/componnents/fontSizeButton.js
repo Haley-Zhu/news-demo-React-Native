@@ -1,14 +1,18 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { useDispatch } from "redux-react-hook";
+import { setFontSliderVisible as setFontSliderVisibleAction } from '../redux/actions';
 
 const FontSizeButton = () => {
-  setPress = () => {
+  const dispatch = useDispatch();
+  onTextPress = () => {
     console.log("@@@@@@@@@@@");
+    dispatch(setFontSliderVisibleAction(true));
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text} onPress={() => setPress()}>A</Text>
+      <Text style={styles.text} onPress={() => onTextPress()}>A</Text>
     </View>
   );
 };

@@ -5,9 +5,12 @@ import {
   View
 } from "react-native";
 import Modal from "react-native-modal";
+import { useDispatch, useMappedState } from "redux-react-hook";
+import { setFontSliderVisible as setFontSliderVisibleAction } from '../redux/actions';
 
-const SliderToast = () => {
-  const [modalVisible, setModalVisible] = useState(true);
+const FontSlider = () => {
+  const dispatch = useDispatch();
+  const isFontSliderVisible = useMappedState(state => state.isFontSliderVisible);
 
   _onValueChange = value => {
     console.log("!!!!!!!!!", value);
@@ -15,11 +18,11 @@ const SliderToast = () => {
 
   return (
     <Modal
-      isVisible={modalVisible}
+      isVisible={isFontSliderVisible}
       backdropOpacity={0}
       animationInTiming={0}
       animationOutTiming={0}
-      onBackdropPress={() => setModalVisible(false)}
+      onBackdropPress={() => dispatch(setFontSliderVisibleAction(false))}
     >
       <View style={viewStyles.test}>
         <Slider
@@ -34,7 +37,7 @@ const SliderToast = () => {
   );
 };
 
-export default SliderToast;
+export default FontSlider;
 
 const viewStyles = StyleSheet.create({
   container: {
