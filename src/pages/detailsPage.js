@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-nat
 import FontSizeButton from '../componnents/fontSizeButton';
 import SliderToast from '../componnents/sliderToast';
 import { getDetailById } from "../utils/axiosAPI";
+import { useMappedState } from "redux-react-hook";
 
 const DetailsPage = ({ navigation }) => {
   const [detailData, setDetailData] = useState({});
@@ -29,6 +30,9 @@ const DetailsPage = ({ navigation }) => {
       setErrorInfo(error);
     });;
   };
+
+  const fontSize = useMappedState(state => state.fontSize);
+  console.log("&&&&&&&&&&", fontSize);
 
   const renderLoadingView = () => {
     return (
@@ -73,7 +77,7 @@ const DetailsPage = ({ navigation }) => {
 
 DetailsPage.navigationOptions = () => ({
   title: null,
-  headerRight: (<FontSizeButton />)
+  headerRight: () => <FontSizeButton />
 });
 
 export default DetailsPage;
